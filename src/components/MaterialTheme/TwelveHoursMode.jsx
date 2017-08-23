@@ -6,7 +6,8 @@ import {
   POINTER_RADIUS,
   TWELVE_HOURS,
 } from '../../utils/const_value.js';
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import timeHelper from '../../utils/time';
 
@@ -108,14 +109,14 @@ class TwelveHoursMode extends React.PureComponent {
     }
   }
 
-  handleHourPointerClick(time, hourPointerRotate) {
+  handleHourPointerClick(time, hourPointerRotate = null) {
     this.handleHourChange(time);
-    this.handleDegreeChange({hourPointerRotate});
+    hourPointerRotate && this.handleDegreeChange({hourPointerRotate});
   }
 
-  handleMinutePointerClick(time, minutePointerRotate) {
+  handleMinutePointerClick(time, minutePointerRotate = null) {
     this.handleMinuteChange(time);
-    this.handleDegreeChange({minutePointerRotate});
+    minutePointerRotate && this.handleDegreeChange({minutePointerRotate});
   }
 
   handleDegreeChange(pointerRotate) {
@@ -138,12 +139,14 @@ class TwelveHoursMode extends React.PureComponent {
     const {
       hour,
       minute,
+      phrases,
+      timezone,
       meridiem,
       draggable,
       clearFocus,
-      phrases,
+      limitDrag,
+      minuteStep,
       showTimezone,
-      timezone,
       timezoneIsEditable,
       onTimezoneChange
     } = this.props;
@@ -166,7 +169,8 @@ class TwelveHoursMode extends React.PureComponent {
     const HourPickerPointGenerator = pickerPointGenerator('hour', 12);
     const MinutePickerPointGenerator = pickerPointGenerator('minute', 12);
     const newMeridiem = (meridiem === 'AM' || meridiem === phrases['am'])
-      ? phrases['pm'] : phrases['am'];
+      ? phrases['pm']
+      : phrases['am'];
 
     const handleMeridiemChange = this.handleMeridiemChange.bind(
       this,
@@ -185,12 +189,16 @@ class TwelveHoursMode extends React.PureComponent {
         <div className='picker_container'>
           <HourPickerPointGenerator
             handleTimePointerClick={this.handleHourPointerClick}
+            pointerRotate={hourPointerRotate}
           />
           <MinutePickerPointGenerator
             handleTimePointerClick={this.handleMinutePointerClick}
+            pointerRotate={minutePointerRotate}
           />
           <PickerDragHandler
             step={1}
+            limitDrag={limitDrag}
+            minuteStep={minuteStep}
             rotateState={minuteRotateState}
             time={parseInt(minute)}
             minLength={MAX_ABSOLUTE_POSITION}
@@ -198,6 +206,8 @@ class TwelveHoursMode extends React.PureComponent {
             handleTimePointerClick={this.handleMinutePointerClick} />
           <PickerDragHandler
             step={0}
+            limitDrag={limitDrag}
+            minuteStep={minuteStep}
             rotateState={hourRotateState}
             time={parseInt(hour)}
             maxLength={MIN_ABSOLUTE_POSITION}

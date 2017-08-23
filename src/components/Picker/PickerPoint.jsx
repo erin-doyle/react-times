@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import darg from '../../utils/drag';
 
 const propTypes = {
@@ -16,7 +17,13 @@ const defaultProps = {
 };
 
 const PickerPoint = (props) => {
-  const { index, handleTimeChange, pointClass, angle } = props;
+  const {
+    index,
+    angle,
+    handleTimeChange,
+    pointClass,
+    pointerRotate
+  } = props;
   const inlineStyle = darg.inlineRotateStyle(angle);
   const wrapperStyle = darg.rotateStyle(-angle);
 
@@ -25,9 +32,19 @@ const PickerPoint = (props) => {
       className={pointClass}
       style={inlineStyle}
       onClick={() => {
-        handleTimeChange(index, angle)
+        let relativeRotate = angle - pointerRotate % 360;
+        if (relativeRotate >= 180) {
+          relativeRotate = relativeRotate - 360;
+        } else if (relativeRotate < -180) {
+          relativeRotate = relativeRotate + 360;
+        }
+        handleTimeChange && handleTimeChange({
+          time: index,
+          pointerRotate: relativeRotate + pointerRotate
+        });
       }}
-      onMouseDown={darg.disableMouseDown}>
+      onMouseDown={darg.disableMouseDown}
+    >
       <div className="point_wrapper" style={wrapperStyle}>
         {index}
       </div>

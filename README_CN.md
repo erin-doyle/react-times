@@ -177,7 +177,7 @@ render() {
 > 初始化时的时间，格式是 `${hour}:${minute}`，不传则默认使用当前时间（通过`moment()`）
 
 ```javascript
-// React.PropTypes.string
+// PropTypes.string
 time="11:11"
 time="11:01"
 time="1:01"
@@ -189,7 +189,7 @@ time="1:1"
 > 初始化时时间选择器的 modal 是否打开，默认为`false`
 
 ```javascript
-// React.PropTypes.bool
+// PropTypes.bool
 focused={false}
 focused={true}
 ```
@@ -199,7 +199,7 @@ focused={true}
 > 时间选择器的按钮上是否不需要 svg icon，默认为`false`
 
 ```javascript
-// React.PropTypes.bool
+// PropTypes.bool
 withoutIcon={true}
 ```
 
@@ -208,7 +208,7 @@ withoutIcon={true}
 > 配色方案，默认为`light`
 
 ```javascript
-// React.PropTypes.string
+// PropTypes.string
 colorPalette="dark"
 colorPalette="light"
 ```
@@ -218,7 +218,7 @@ colorPalette="light"
 > 12 或 24 小时制，默认为 24
 
 ```javascript
-// React.PropTypes.string or React.PropTypes.number
+// PropTypes.string or PropTypes.number
 timeMode="24"
 timeMode=24
 timeMode="12"
@@ -231,11 +231,11 @@ timeMode=12
 
 - `showTimezone`
 
-> `React.PropTypes.bool`，代表是否展示用户的时区。默认为 `false`
+> `PropTypes.bool`，代表是否展示用户的时区。默认为 `false`
 
 - `timezone`
 
-> `React.PropTypes.string`，可以通过该 props 改变用户所处的时区。默认为用户当前本地时区。
+> `PropTypes.string`，可以通过该 props 改变用户所处的时区。默认为用户当前本地时区。
 
 - `trigger`
 
@@ -297,17 +297,37 @@ timeMode=12
 />
 ```
 
+- `minuteStep`
+
+> `React.number`, 默认为 `5`。该属性代表当分针改变时的最小步长(minute)。可以设置为 1，2，3....
+
+```javascript
+<TimePicker
+  minuteStep={1}
+/>
+```
+
+- `limitDrag`
+
+> `React.bool`, 默认为 `false`. 当设置为 `true` 时，将会限制用户的拖拽（从连续性的拖拽变为间断性拖拽，间隔由 `minuteStep` 确定）
+
+```javascript
+<TimePicker
+  limitDrag
+/>
+```
+
 ## 回调
 
 - `onFocusChange`
 
-`React.PropTypes.func`
+`PropTypes.func`
 
 > 当组件`focused`属性改变，也就是选择器 modal 被打开或关闭时调用
 
 - `onHourChange`
 
-`React.PropTypes.func`
+`PropTypes.func`
 
 > 小时`hour`改变时的回调
 
@@ -319,7 +339,7 @@ onHourChange(hour) {
 
 - `onMinuteChange`
 
-`React.PropTypes.func`
+`PropTypes.func`
 
 > 分钟`minute`被改变时的回调
 
@@ -331,7 +351,7 @@ onMinuteChange(minute) {
 
 - `onTimeChange`
 
-`React.PropTypes.func`
+`PropTypes.func`
 
 > 小时`hour`或者分钟`minute`被改变时的回调
 
@@ -343,13 +363,13 @@ onTimeChange(time) {
 
 - `onMeridiemChange`
 
-`React.PropTypes.func`
+`PropTypes.func`
 
 > 当 上、下午改变时触发的回调
 
 - `onTimezoneChange`
 
-`React.PropTypes.func`
+`PropTypes.func`
 
 > 当时区改变时的回调
 
@@ -396,12 +416,11 @@ onTimeChange(time) {
 # 核心贡献者 🎉
 
 - **[carlodicelico](https://github.com/carlodicelico)**
-
 - **[erin-doyle](https://github.com/erin-doyle)**
-
-- **[thg303](https://github.com/thg303)**
-
+- **[MatthieuLemoine](https://github.com/MatthieuLemoine)**
 - **[naseeihity](https://github.com/naseeihity)**
+- **[shianqi](https://github.com/shianqi)**
+- **[thg303](https://github.com/thg303)**
 
 # 版权
 

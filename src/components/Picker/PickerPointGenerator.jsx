@@ -32,6 +32,7 @@ const pickerPointGenerator = (type = "hour", mode = 24) => {
               key={index}
               angle={angle}
               handleTimeChange={this.handleTimePointerClick}
+              pointerRotate={this.props.pointerRotate}
             />
           );
         }
@@ -41,8 +42,12 @@ const pickerPointGenerator = (type = "hour", mode = 24) => {
     renderHourPointes() {
       const hours = parseInt(mode) === 24 ? HOURS : TWELVE_HOURS;
       return hours.map((h, index) => {
-        const pointClass = index < 12 ? 'picker_point point_inner' : 'picker_point point_outter';
-        const angle = index < 12 ? 360 * (index) / 12 : 360 * (index - 12) / 12;
+        const pointClass = index < 12
+          ? 'picker_point point_inner'
+          : 'picker_point point_outter';
+        const angle = index < 12
+          ? 360 * (index) / 12
+          : 360 * (index - 12) / 12;
         return (
           <PickerPoint
             index={index}
@@ -50,6 +55,7 @@ const pickerPointGenerator = (type = "hour", mode = 24) => {
             angle={angle}
             pointClass={pointClass}
             handleTimeChange={this.handleTimePointerClick}
+            pointerRotate={this.props.pointerRotate}
           />
         );
       });
@@ -60,7 +66,9 @@ const pickerPointGenerator = (type = "hour", mode = 24) => {
         <div
           ref={ref => this.pickerPointerContainer = ref}
           id='picker_pointer_container'>
-          {type === 'hour' ? this.renderHourPointes() : this.renderMinutePointes()}
+          {type === 'hour'
+              ? this.renderHourPointes()
+              : this.renderMinutePointes()}
         </div>
       );
     }
